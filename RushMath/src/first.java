@@ -75,7 +75,7 @@ public class first extends GraphicsProgram
 			}
 		}
 	}
-	//Movimiento del carro con las flechas después de un click encima de este.
+	//Movimiento del car con las flechas después de un click encima de este.
 	public void mousePressed(MouseEvent e) 
 	{
 		P = new GPoint(e.getPoint());
