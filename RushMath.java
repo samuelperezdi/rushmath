@@ -3,7 +3,7 @@ import acm.graphics.*;
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.event.*;
-public class first extends GraphicsProgram
+public class Rush_Math extends GraphicsProgram
 {
 	private static final long serialVersionUID = 1L;
 	public void run() 
@@ -75,7 +75,7 @@ public class first extends GraphicsProgram
 			}
 		}
 	}
-	//Movimiento del ca con las flechas después de un click encima de este.
+	//Movimiento del carro con las flechas después de un click encima de este.
 	public void mousePressed(MouseEvent e) 
 	{
 		P = new GPoint(e.getPoint());
@@ -100,3 +100,4 @@ public class first extends GraphicsProgram
 	private GObject car_;
 	private GPoint P;
 }
+
