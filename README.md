@@ -1,20 +1,19 @@
-#RUSHMATH:
-#THIS IS THE MASTER BRANCH.
+#- RUSHMATH:
 
-	RushMath es un proyecto realizado por estudiantes del programa Matemáticas Aplicadas y Ciencias de la Computación para el curso de Programación de Computadores.
-	En este se busca crear una herramienta didáctica y divertida para la enseñanza de las matemáticas básicas.
-	Desarrollado por Samuel Pérez y Nicolás Duque.
+	RushMath es un proyecto realizado por estudiantes del programa Matem�ticas Aplicadas y Ciencias de la Computaci�n para el curso de Programaci�n de Computadores.
+	En este se busca crear una herramienta did�ctica y divertida para la ense�anza de las matem�ticas b�sicas.
+	Desarrollado por Samuel P�rez y Nicol�s Duque.
 
 -DELINEAMENTOS:
 
 	. Escenario.
 	. Carro.
 	. Movimiento.
-	. Obstáculos.
-	. Problemas matemáticos.
-	. Progresión del juego.
-	. Sistema de puntuación.
-	(A partir de este momento, ya se creó la base principal del juego, lo demás será opcional respecto al tiempo restante)
-	. Menú.
-	. Ranking de puntuación.
-	. Demás.
+	. Obst�culos.
+	. Problemas matem�ticos.
+	. Progresi�n del juego.
+	. Sistema de puntuaci�n.
+	(A partir de este momento, ya se cre� la base principal del juego, lo dem�s ser� opcional respecto al tiempo restante)
+	. Men�.
+	. Ranking de puntuaci�n.
+	. Dem�s.
