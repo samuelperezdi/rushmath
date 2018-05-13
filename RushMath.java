@@ -7,30 +7,34 @@ public class RushMath extends GraphicsProgram
 {
 	private static final long serialVersionUID = 1L;
 	//-----------------------------------------------------------------------------------------------------------------------------------------------------
-	public static final int CW = 1200;		public static final int CH = CW / 2;
+	public static final int CW = 1000;		public static final int CH = CW / 2;
 	GRect e1 = new GRect(0, 0, CW / 10, CH);         GRect e2 = new GRect(CH, 0, CW / 10, CH);
 	GLine c1 = new GLine(CW / 4.29, 0, CW / 4.29, CH);   	  GLine c2 = new GLine(CW / 2.73, 0, CW / 2.73, CH);
-	GRect Opc_9 = new GRect(CW / 6.66, CH / 50, CW / 33.33, CH / 33.33);		
-	GRect Opc_6 = new GRect(CW / 3.52, CH / 50, CW / 33.33, CH / 33.33);		
-	GRect Opc_3 = new GRect(CW / 2.40, CH / 50, CW / 33.33, CH / 33.33);
+	GRect block1 = new GRect(CW / 6.66, CH / 50, CW / 33.33, CH / 33.33);		
+	GRect block2 = new GRect(CW / 3.52, CH / 50, CW / 33.33, CH / 33.33);		
+	GRect block3 = new GRect(CW / 2.40, CH / 50, CW / 33.33, CH / 33.33);
 	GRect PUNT = new GRect(9*CW / 10, 4*CH / 5, 9*CW / 100, 4*CH / 50);
 	GRect Qu = new GRect(7*CW / 10, CH / 5, 22*CW / 100, 7*CH / 100);
-	//Preguntas primer nivel.
-	GLabel Q1 = new GLabel("¿Cuánto es 7 x 2?", 73*CW / 100, 12*CH / 50);		
-	GLabel Q2 = new GLabel("¿Cuánto es 2 x 4?", 73*CW / 100, 12*CH / 50);		
-	GLabel Q3 = new GLabel("¿Cuánto es 5 x 3?", 73*CW / 100, 12*CH / 50);
-	GLabel NINE = new GLabel("14");		GLabel SIX = new GLabel("8");		GLabel THREE = new GLabel("15");
-	GLabel begin = new GLabel("Oprime encima del botón");
+	int A = rgen.nextInt(0, 20);		int B = rgen.nextInt(0, 20);
+	GLabel question = new GLabel("¿Cuánto es " + A + " + " + B + "?");
+	GLabel ansL = new GLabel("");		GLabel ansM = new GLabel("");		GLabel ansN = new GLabel("");
+	int c = 0;		
+	int score = 0;	
+	String Score = Integer.toString(score);
+	GLabel SCORE = new GLabel("SCORE: " + score, 23*CW / 25, 42*CH / 50);
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------
 	public void run() 
 	{
 		//Realización del escenario.
 		setSize(CW, CH);		setBackground(Color.BLACK);
+		//-------------------------------------------------------------------------------------------------------------------------------------------------
 		add(e1);		e1.setFilled(true);		e1.setFillColor(Color.GREEN);        		  
 		add(e2);		e2.setFilled(true);		e2.setFillColor(Color.GREEN);
-		//-------------------------------------------------------------------------------------------------------------------------------------------------
 		add(c1);		c1.setColor(Color.GREEN);                
 		add(c2);	 	c2.setColor(Color.GREEN);
+		//Añadiendo campo de puntuación.
 		add(PUNT);		PUNT.setFilled(true);	PUNT.setFillColor(Color.GREEN);
+		add(SCORE);
 		//Añadiendo listeners necesarios.
 		addMouseListeners();
 		addKeyListeners();
@@ -38,39 +42,28 @@ public class RushMath extends GraphicsProgram
 		add(Qu); 	Qu.setFilled(true);		Qu.setFillColor(Color.GREEN);
 		//Añadiendo el carro.
 		GPolygon car = createCar(3*CW / 10);		add(car);		car.setFilled(true);		car.setFillColor(Color.RED);
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
-		add(Opc_9);		Opc_9.setFilled(true);		Opc_9.setFillColor(Color.GREEN);	 
-		add(Opc_6);		Opc_6.setFilled(true);		Opc_6.setFillColor(Color.GREEN);
-		add(Opc_3);		Opc_3.setFilled(true);		Opc_3.setFillColor(Color.GREEN);
-		add(NINE, 16*CW / 100, 22*CH / 500);		add(SIX, CW / 3.40, 22*CH / 500);		add(THREE, CW / 2.34, 22*CH / 500);	 
-		//GLine cy = new GLine(0, 400, 1000, 400);		add(cy);		cy.setColor(Color.GREEN);
-		//GLine cx = new GLine(300, 0, 300, 500);		add(cx);		cx.setColor(Color.GREEN);
+		//------------------------------------------------------------------------------------------------------------------------------------------------
+		add(block1);		block1.setFilled(true);		block1.setFillColor(Color.GREEN);	 
+		add(block2);		block2.setFilled(true);		block2.setFillColor(Color.GREEN);
+		add(block3);		block3.setFilled(true);		block3.setFillColor(Color.GREEN);
 		//int score = SCORE(car, Opc_9);		add(new GLabel("SCORE: "+ score + ".", 37*CW / 40, 43*CH / 50));
-		//--------------------------------------------------------------------------------------------------------------------------------------------------
+		//Primer pregunta, es una suma.
+		add(question, 73*CW / 100, 12*CH / 50);
+		
 		while(true) 
 		{
-			remove(begin);
-			Opc_9.move(0, CH / 100);		NINE.move(0, CH / 100);
-			Opc_6.move(0, CH / 100);		SIX.move(0, CH / 100);
-			Opc_3.move(0, CH / 100);		THREE.move(0, CH / 100);
+			block1.move(0, CH / 100);		block2.move(0, CH / 100);		block3.move(0, CH / 100);	
+			ansL.move(0, CH / 100);		ansN.move(0, CH / 100);		ansM.move(0, CH / 100);
 			pause(30);
 			car.setFillColor(Color.RED);
 			pause(30);
 			car.setFillColor(Color.GREEN);
 			pause(30);
 			car.setFillColor(Color.BLUE);
-			double a = Opc_9.getY();
-			double b = car.getX();
-			double c = car.getY();
-			GLabel az = new GLabel("opc y: " + (a + 15));
-			GLabel bz = new GLabel("car x: " + (b + 3*CW / 10));
-			GLabel cz = new GLabel("car y: " + (c + 4*CH / 5));
-			add(az, CW / 100, CH / 10);	add(bz, CW / 100, 7*CH / 50);		add(cz, CW / 100, 9*CH / 50);	
-			pause(15);
-			remove(az);		remove(bz);		remove(cz);
-			bye_obstacle(car,Opc_9, Opc_6, Opc_3, NINE, SIX, THREE);
-			limit_car(car, Qu);
-			new_obstacle(Opc_9, Opc_6, Opc_3, NINE, SIX, THREE);
+			ByeObstacle(car, block1, block2, block3);
+			NewObstacle(block1, block2, block3);
+			ScorePlus();
+			//GAMEOVER();
 		}
 	}
 	//Realización del carro.
@@ -91,7 +84,7 @@ public class RushMath extends GraphicsProgram
 		car.addVertex(x - CW / 100, x + 12*CH / 50);
 		return car;
 	}
-	//Movimiento del carro con las flechas después de un click encima de este.
+	//Movimiento del carro con las flechas después de un click encima de este, impedimento a la nave al querer salir de las pista.
 	public void mousePressed(MouseEvent e) 
 	{
 		P = new GPoint(e.getPoint());
@@ -101,43 +94,32 @@ public class RushMath extends GraphicsProgram
 	{
 		if(car_ != null)
 		{
-			switch(f.getKeyCode())
+			if(f.getKeyCode() == KeyEvent.VK_RIGHT && car_.getX() < 17*CW / 100)
 			{
-				case KeyEvent.VK_RIGHT: 
-					car_.move(CW / 200, 0);
-					break;
-				case KeyEvent.VK_LEFT:
-					car_.move(-CW / 200, 0); 
-					break;
-				case KeyEvent.VK_UP: 
-					car_.move(0, -CH / 100); 
-					break;
-				case KeyEvent.VK_DOWN:
-					car_.move(0, CH / 100); 
-					break;
+				car_.move(CW / 200, 0);
 			}
+			if(f.getKeyCode() == KeyEvent.VK_LEFT && car_.getX() > -17*CW / 100)
+			{
+				car_.move(-CW / 200, 0);
+			}
+			if(f.getKeyCode() == KeyEvent.VK_UP && car_.getY() > -4*CH / 5)
+			{
+				car_.move(0, -CH / 100);
+			}
+			if(f.getKeyCode() == KeyEvent.VK_DOWN && car_.getY() < 4*CH / 50)
+			{
+				car_.move(0, CH / 100);
+			}
+			
 		}
 	}
-	//Sistema de puntuación --- FALLIDO.
-	/*public int SCORE(GObject car, GObject opc) 
+	//Eliminación del obstaculo al tener contacto con el carro. 
+	//En este método también sucede que si se escoge la respuesta incorrecta, se interrumpe el juego con un GAME OVER en pantalla.
+	public void ByeObstacle(GPolygon car, GRect block1, GRect block2, GRect block3)
 	{
-		int score = 0;
-		double xopc = opc.getX();		double xcar = car.getX();
-		double yopc = opc.getY();		double ycar = car.getY();
-		double dx = xcar - xopc;		double dy = ycar - yopc;
-		double distance = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-		if(distance <= 50)
-		{
-			score = score + 1;
-		}
-		return score;
-	}*/
-	//Eliminación del obstaculo al tener contacto con el carro.
-	public void bye_obstacle(GPolygon car, GRect opc1, GRect opc2, GRect opc3, GLabel one, GLabel two, GLabel three)
-	{
-		double coorx1 = opc1.getX();		double coory1 = opc1.getY();
-		double coorx2 = opc2.getX();		double coory2 = opc2.getY();
-		double coorx3 = opc3.getX();		double coory3 = opc3.getY();
+		double coorx1 = block1.getX();		double coory1 = block1.getY();
+		double coorx2 = block2.getX();		double coory2 = block2.getY();
+		double coorx3 = block3.getX();		double coory3 = block3.getY();
 		double coorcarx = car.getX() + 3*CW / 10;		double coorcary = car.getY() + 4*CH / 5;
 			
 		double dx1 = coorcarx - coorx1;		double dy1 = coorcary - coory1;	
@@ -154,118 +136,192 @@ public class RushMath extends GraphicsProgram
 			
 		if(DISTANCE_MIN <= distance1 && distance1 <= DISTANCE_MAX && coory1 + DISTANCE_MIN + 3 >= coorcary)	
 		{	
-			remove(opc1);
-			remove(one);
-			remove(two);
-			remove(three);
+			remove(block1);		
+			if(c == 1)		ansL.setVisible(false);
+			else if(c == 2)		
+			{	
+				ansM.setVisible(false);	
+				setBackground(Color.RED);
+				pause(1500);
+				removeAll();
+				add(new GLabel("G A M E  O V E R", CW / 2, CH /2));
+			}
+			else if(c == 3)	
+			{  
+				ansN.setVisible(false);	
+				setBackground(Color.RED);
+				pause(1500);
+				removeAll();
+				add(new GLabel("G A M E  O V E R", CW / 2, CH /2));
+			}
 		}
 		else if(DISTANCE_MIN / 33.33 <= distance2 && distance2 <= DISTANCE_MAX && coory2 + DISTANCE_MIN + 3 >= coorcary)	
 		{
-			remove(opc2);
-			remove(one);
-			remove(two);
-			remove(three);
-			setBackground(Color.RED);
+			remove(block2);		
+			if(c == 1)		
+			{	
+				ansM.setVisible(false);	
+				setBackground(Color.RED);
+				pause(1500);
+				removeAll();
+				add(new GLabel("G A M E  O V E R", CW / 2, CH /2));
+			}
+			else if(c == 2)		ansL.setVisible(false);
+			else if(c == 3)		
+			{	
+				ansM.setVisible(false);	
+				setBackground(Color.RED);
+				pause(1500);
+				removeAll();
+				add(new GLabel("G A M E  O V E R", CW / 2, CH /2));
+			}
 		}
 		else if(DISTANCE_MIN / 33.33 <= distance3 && distance3 <= DISTANCE_MAX && coory3 + DISTANCE_MIN + 3 >= coorcary)		
 		{
-			remove(opc3);
-			remove(one);
-			remove(two);
-			remove(three);
-			setBackground(Color.RED);
-		}
-	}
-	//Impedimento al carro al intentar salir de la pista
-	public void limit_car(GObject car, GRect Qu)
-
-
-	{
-		if(car.getX() > 17*CW / 100) 
-		{
-			add(car, 17*CW / 100, car.getY());
-			Qu.setFillColor(Color.RED);
-			pause(100);
-			Qu.setFillColor(Color.GREEN);
-		}
-		else if(car.getX() < -17*CW / 100)
-		{
-			remove(car);
-			add(car, -17*CW / 100, car.getY());
-			Qu.setFillColor(Color.RED);
-			pause(100);
-			Qu.setFillColor(Color.GREEN);
-		}
-		else if(car.getY() < - 4*CH / 5) 
-		{
-			remove(car);
-			add(car, car.getX(), -4*CH / 5);
-			Qu.setFillColor(Color.RED);
-			pause(100);
-			Qu.setFillColor(Color.GREEN);
-		}
-		else if(car.getY() > 4*CH / 50) 
-		{
-			remove(car);
-			add(car, car.getX(), 4*CH / 50);
-			Qu.setFillColor(Color.RED);
-			pause(100);
-			Qu.setFillColor(Color.GREEN);
+			remove(block3);		
+			if(c == 1)		
+			{	
+				ansN.setVisible(false);	
+				setBackground(Color.RED);
+				pause(1500);
+				removeAll();
+				add(new GLabel("G A M E  O V E R", CW / 2, CH /2));
+			}
+			else if(c == 2)		
+			{	
+				ansN.setVisible(false);	
+				setBackground(Color.RED);
+				pause(1500);
+				removeAll();
+				add(new GLabel("G A M E  O V E R", CW / 2, CH /2));
+			}
+			else if(c == 3)		ansL.setVisible(false);
 		}
 	}
 	//Método que cambia el orden de las posibles opciones y además cambia de pregunta.
-	public void new_obstacle(GRect block1, GRect block2, GRect block3, GLabel one, GLabel two, GLabel three) 
+	//Genera los nuevos obstaculos, preguntas cuando unos anteriores ya hayan completado su ciclo en el juego.
+	public void NewObstacle(GRect block1, GRect block2, GRect block3) 
 	{
-		while(block1.getY() == CH)
+		if(block1.getY() > CH)
 		{
-			int order = rgen.nextInt(1, 6);
-			remove(block1);		remove(block2);		remove(block3);
-			remove(one);		remove(two);		remove(three);
-			remove(Q1);		remove(Q2);		remove(Q3);	
-			add(block1, CW / 6.66, CH / 50);		add(block2, CW / 3.52, CH / 50);		add(block3, CW / 2.40, CH / 50);
-			switch(order) 
-			{
-				case 1:	
-					add(one, 16*CW / 100, 22*CH / 500);
-					add(two, CW / 3.40, 22*CH / 500);
-					add(three, CW / 2.34, 22*CH / 500);
-					add(Q1);		
-					break;		
-				case 2:	
-					add(two, 16*CW / 100, 22*CH / 500);
-					add(three, CW / 3.40, 22*CH / 500);
-					add(one, CW / 2.34, 22*CH / 500);
-					add(Q1);
-					break;	
-				case 3:	
-					add(three, 16*CW / 100, 22*CH / 500);
-					add(one, CW / 3.40, 22*CH / 500);
-					add(two, CW / 2.34, 22*CH / 500);
-					add(Q2);
-					break;	
-				case 4: 
-					add(one, 16*CW / 100, 22*CH / 500);
-					add(three, CW / 3.40, 22*CH / 500);
-					add(two, CW / 2.34, 22*CH / 500);
-					add(Q2);
-					break;	
-				case 5: 
-					add(two, 16*CW / 100, 22*CH / 500);
-					add(one, CW / 3.40, 22*CH / 500);
-					add(three, CW / 2.34, 22*CH / 500);	
-					add(Q3);
-					break;
-				case 6: 
-					add(three, 16*CW / 100, 22*CH / 500);
-					add(two, CW / 3.40, 22*CH / 500);
-					add(one, CW / 2.34, 22*CH / 500);
-					add(Q3);		
-					break;
-			}
+			block1.setVisible(true);		block2.setVisible(true);		block3.setVisible(true);
+			remove(ansL);		remove(ansM);		remove(ansN);
+			add(block1, CW / 6.66, 0);	add(block2, CW / 3.52, 0);		add(block3, CW / 2.40, 0);	
+			remove(question);
+			RandomOP();
 			setBackground(Color.BLACK);
 		}
 	}
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	//Genera adiciones aleatorias de dos número entre el 0 y el 20.
+	private void GeneAD()
+	{
+		int a = rgen.nextInt(0,20);		int b = rgen.nextInt(0, 20);
+		c = rgen.nextInt(1, 3); 	
+		int d = rgen.nextInt(a, b);     int e = rgen.nextInt(a, b);
+		question = new GLabel("¿Cuánto es " + a + " + " + b + "?");
+		add(question, 73*CW / 100, 12*CH / 50);
+		ansL = new GLabel(Integer.toString(a + b));
+		ansM = new GLabel(Integer.toString((a + b) - d));
+		ansN = new GLabel(Integer.toString((a + b) + e));
+		if(c == 1) 
+		{
+			add(ansL, 16*CW / 100, 3*CH / 125);
+			add(ansM, CW / 3.40, 3*CH / 125);
+			add(ansN, CW / 2.34, 3*CH / 125);
+		}
+		else if(c == 2) 
+		{
+			add(ansM, 16*CW / 100, 3*CH / 125);
+			add(ansL, CW / 3.40, 3*CH / 125);
+			add(ansN, CW / 2.34, 3*CH / 125);
+		} 
+		else if(c == 3) 
+		{
+			add(ansN, 16*CW / 100, 3*CH / 125);
+			add(ansM, CW / 3.40, 3*CH / 125);
+			add(ansL, CW / 2.34, 3*CH / 125);
+		} 
+	}
+	//Genera sustracciones aleatorias de dos número entre el 0 y el 20.
+	private void GeneSUS()
+	{
+		int a = rgen.nextInt(0,20);		int b = rgen.nextInt(0, 20);
+		c = rgen.nextInt(1, 3); 	
+		int d = rgen.nextInt(a, b);     int e = rgen.nextInt(a, b);
+		question = new GLabel("¿Cuánto es " + a + " - " + b + "?");
+		add(question, 73*CW / 100, 12*CH / 50);
+		ansL = new GLabel(Integer.toString(a - b));
+		ansM = new GLabel(Integer.toString((a - b) + d));
+		ansN = new GLabel(Integer.toString((a - b) - e));
+		if(c == 1) 
+		{
+			add(ansL, 16*CW / 100, 3*CH / 125);
+			add(ansM, CW / 3.40, 3*CH / 125);
+			add(ansN, CW / 2.34, 3*CH / 125);
+		}
+		else if(c == 2) 
+		{
+			add(ansM, 16*CW / 100, 3*CH / 125);
+			add(ansL, CW / 3.40, 3*CH / 125);
+			add(ansN, CW / 2.34, 3*CH / 125);
+		} 
+		else if(c == 3) 
+		{
+			add(ansN, 16*CW / 100, 3*CH / 125);
+			add(ansM, CW / 3.40, 3*CH / 125);
+			add(ansL, CW / 2.34, 3*CH / 125);
+		} 
+	}
+	//Tira una moneda, si es cara genera la suma y si es sello un sustracción-
+	//Escoge al azar entre una suma y una resta realizadas en los métodos GeneAD y GeneSUS.
+	private void RandomOP()
+	{
+		boolean DETER = rgen.nextBoolean();
+				if(DETER == true)
+					{
+						GeneAD();
+					}
+				else
+					{
+						GeneSUS();
+					}
+	}
+	/*private String RandomCongrats()
+	{
+		int VAR = rgen.nextInt(1, 4);
+		String Congrats;
+		switch(VAR)
+		{
+		case 1: VAR = 1;
+				Congrats = "Congrats!";
+				break;
+		case 2: VAR = 2;
+				Congrats = "That's the answer!";
+				break;
+		case 3: VAR = 3;
+				Congrats = "That's right!";
+				break;
+		default: Congrats = "Yey!";
+		}
+		
+		return Congrats;
+	}*/
+	//Aumenta la puntuación al escoger la pregunta correcta.
+	public void ScorePlus()
+	{
+		if(ansL.isVisible() == false)
+		{
+			add(SCORE);
+			remove(SCORE);
+			score++;
+			Score = Integer.toString(score);
+			SCORE = new GLabel("SCORE: " + score, 23*CW / 25, 42*CH / 50);
+			add(SCORE);
+			ansL.move(0, 500);
+			ansL.setVisible(true);
+		}
+	}
+	//-------------------------------------------------------------------------------------------------------------------------------------------------------
 	private GObject car_;
 	private GPoint P;
 	private static RandomGenerator rgen = RandomGenerator.getInstance();
