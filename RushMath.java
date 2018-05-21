@@ -27,7 +27,7 @@ public class HelloWorld extends GraphicsProgram
 	}
 	
 	
-	//Realización del escenario.
+	//Making of the stage.
 	public void createStage()
 	{
 		setSize(CW, CH);		setBackground(Color.BLACK);
@@ -55,7 +55,7 @@ public class HelloWorld extends GraphicsProgram
 	}
 	
 	
-	//Realización del carro.
+	//Making of the car.
 	public GPolygon createCar(int x) 
 	{
 		GPolygon car = new GPolygon();
@@ -75,7 +75,7 @@ public class HelloWorld extends GraphicsProgram
 	}
 	
 	
-	//Movimiento del carro con las flechas después de un click encima de este, impedimento a la nave al querer salir de las pista.
+	//Movement of the car with the arrows after a click on it, limits of the track.
 	public void mousePressed(MouseEvent e) 
 	{
 		P = new GPoint(e.getPoint());
@@ -108,8 +108,8 @@ public class HelloWorld extends GraphicsProgram
 	}
 	
 	
-	//Eliminación del obstáculo al tener contacto con el carro. 
-	//En este método también sucede que si se escoge la respuesta incorrecta, se interrumpe el juego con un GAME OVER en pantalla.
+	//Elimination of the obstacle after contact with the car.
+	//If incorrect answer, game over.
 	public void ByeObstacle(GPolygon car, GRect block1, GRect block2, GRect block3)
 	{
 		double coorx1 = block1.getX();		double coory1 = block1.getY();
@@ -134,8 +134,8 @@ public class HelloWorld extends GraphicsProgram
 			remove(block1);		
 			if(c == 1)
 				{
-				ansL.setVisible(false);
 				ScorePlus();
+				ansL.setVisible(false);
 				}
 			else if(c == 2)		
 			{	
@@ -167,8 +167,8 @@ public class HelloWorld extends GraphicsProgram
 			}
 			else if(c == 2)
 				{
-				ansL.setVisible(false);
 				ScorePlus();
+				ansL.setVisible(false);
 				}
 			else if(c == 3)		
 			{	
@@ -200,16 +200,16 @@ public class HelloWorld extends GraphicsProgram
 			}
 			else if(c == 3)		
 				{
-				ansL.setVisible(false);
 				ScorePlus();
+				ansL.setVisible(false);
 				}
 		}
 		
 	}
 	
 	
-	//Método que cambia el orden de las posibles opciones y además cambia de pregunta.
-	//Genera los nuevos obstáculos, preguntas cuando unos anteriores ya hayan completado su ciclo en el juego.
+	//Method that changes the order of the possible options and also changes the question.
+	//Generation of new obstacles, new question when a cycle ends.
 	public void NewObstacle(GRect block1, GRect block2, GRect block3) 
 	{
 		if(block1.getY() > CH)
@@ -223,7 +223,7 @@ public class HelloWorld extends GraphicsProgram
 	}
 	
 	
-	//Genera adiciones aleatorias de dos número entre el 0 y el 20.
+	//Generates random additions of two numbers between 0 and 20.
 	private void GeneAD()
 	{
 		int a = rgen.nextInt(0,20);		int b = rgen.nextInt(0, 20);
@@ -255,7 +255,7 @@ public class HelloWorld extends GraphicsProgram
 	}
 	
 	
-	//Genera sustracciones aleatorias de dos número entre el 0 y el 20.
+	//Generates random subtraction of two numbers between 0 and 20.
 	private void GeneSUS()
 	{
 		int a = rgen.nextInt(0,20);		int b = rgen.nextInt(0, 20);
@@ -287,8 +287,8 @@ public class HelloWorld extends GraphicsProgram
 	}
 	
 	
-	//Tira una moneda, si es cara genera la suma y si es sello un sustracción-
-	//Escoge al azar entre una suma y una resta realizadas en los métodos GeneAD y GeneSUS.
+	//Subtraction or addition with a random boolean.
+	//With GeneAD and GeneSUS, a random operation is generated.
 	private void RandomOP()
 	{
 		boolean DETER = rgen.nextBoolean();
@@ -325,15 +325,17 @@ public class HelloWorld extends GraphicsProgram
 	}*/
 	
 	
-	//Aumenta la puntuación al escoger la pregunta correcta.
+	//Increase the score by choosing the correct answer.
 	public void ScorePlus()
 	{
+		if(ansL.isVisible())
+		{
 			remove(SCORE);
 			score++;
 			Score = Integer.toString(score);
 			SCORE = new GLabel("SCORE: " + score, 23*CW / 25, 42*CH / 50);
 			add(SCORE);
-			ansL.move(0, 500);
+		}
 	}
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------
 	
