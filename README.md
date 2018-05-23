@@ -1,8 +1,9 @@
-#RUSHMATH
+﻿#RUSHMATH
 
 THIS IS THE MASTER BRANCH.
 
 EL CÓDIGO SE ENCUENTRA EN EL ARCHIVO 	'RushMath.java'.
+LAS IMÁGENES SON NECESARIAS PARA EJECUTAR EL PROGRAMA.
 
 
 	RushMath es un proyecto realizado por estudiantes del programa Matemáticas Aplicadas y Ciencias de la Computación para el curso de Programación de Computadores.
